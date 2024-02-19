@@ -61,7 +61,7 @@ const categorize = function(excelFilePath, sheetName){
                 case transakcija.includes("uplata") && transakcija.includes("pazar"):
                     row["Kat"] = "UPLATA PAZARA";
                     break;
-                case transakcija.includes("provizije") || transakcija.includes("provizija"):
+                case transakcija.includes("provizije") || transakcija.includes("provizija") || transakcija.includes("platne") && transakcija.includes("kartice") && transakcija.includes("naplata") || transakcija.includes("interni") && transakcija.includes("nalog"):
                     row["Kat"] = "PROVIZIJE";
                     break;
                 case transakcija.includes("uplata") && transakcija.includes("porez"):
@@ -98,6 +98,9 @@ const categorize = function(excelFilePath, sheetName){
                         row["Kat"] = "INTERNI PRENOS";
                     }
                     break;
+                case transakcija.includes("prenos"):
+                    row["Kat"] = "INTERNI PRENOS";
+                    break;
                 case testirajZaFakturu(transakcija, row):
                     row["Kat"] = "FAKTURA";
                     break;
@@ -119,9 +122,12 @@ function prevediTransakciju(transakcija){
     const serbianToEnglishDict = {
         'č': 'c',
         'ć': 'c',
+        'æ': 'c',
+        'é': 'c',
         'đ': 'dj',
         'š': 's',
         'ž': 'z'
+        //PLAÆANJE RAÈUNA
     };
     for (let serbian in serbianToEnglishDict) {
         let english = serbianToEnglishDict[serbian];
